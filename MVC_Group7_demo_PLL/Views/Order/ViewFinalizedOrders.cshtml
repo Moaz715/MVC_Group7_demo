@@ -1,0 +1,40 @@
+﻿@model List<MVC_Group7_demo_BLL.ModelVM.FinalizedOrder>
+
+@{
+    Layout = "~/Views/Shared/newLayout.cshtml";
+}
+
+<h2>Finalized Orders</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Total Price</th>
+            <th>Number of Items</th>
+            <th>Customer Location</th>
+            <th>Delivery Name</th>
+            <th>Finalized On</th>
+            <th>Payment Method</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.TotalPrice.ToString("C")</td>
+                <td>@order.NumOfItems</td>
+                <td>@order.CustomerLocation</td>
+                <td>@order.DeliveryName</td>
+                <td>@order.FinalizedOn.ToString()</td>
+                <td>@order.PaymentMethod</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@order.OrderId" class="btn btn-info btn-sm">View</a>
+                    <form asp-action="Cancel" asp-route-id="@order.OrderId" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
