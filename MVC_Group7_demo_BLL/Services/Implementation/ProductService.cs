@@ -74,6 +74,7 @@ namespace MVC_Group7_demo_BLL.Services.Implementation
 
                 var dto = new ReadProductDto
                 {
+                    ProductId = product.ProductId,
                     Name = product.Name,
                     Price = product.Price,
                     Image = product.Image,
@@ -95,7 +96,7 @@ namespace MVC_Group7_demo_BLL.Services.Implementation
         {
             try
             {
-                return await productRepo.UpdateAsync(id, dto.Name, dto.Price, dto.Image, dto.Stock, dto.Description, dto.CategoryId, dto.ModifiedBy);
+                return await productRepo.UpdateAsync(id, dto.Name, dto.Price, dto.Image, dto.Stock, dto.Description, dto.ModifiedBy);
             }
             catch (Exception ex)
             {
@@ -131,6 +132,7 @@ namespace MVC_Group7_demo_BLL.Services.Implementation
 
                 var dtoList = products.Select(p => new ReadProductDto
                 {
+                    ProductId = p.ProductId,
                     Name = p.Name,
                     Price = p.Price,
                     Image = p.Image,
@@ -156,6 +158,7 @@ namespace MVC_Group7_demo_BLL.Services.Implementation
 
             var dtoList = products.Select(p => new ReadProductDto
             {
+                ProductId = p.ProductId,
                 Name = p.Name,
                 Price = p.Price,
                 Image = p.Image,
