@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MVC_Group7_demo_BLL.ModelVM;
 using MVC_Group7_demo_BLL.Services.Abstraction;
@@ -46,7 +46,7 @@ namespace MVC_Group7_demo_PLL.Controllers
             if (!res.Succeeded)
             {
                 foreach (var error in res.Errors)
-                    ModelState.AddModelError("", error.Description);
+                    Console.WriteLine("" + error.Description);
                 return View("Index", registerVM);
             }
 
@@ -98,6 +98,12 @@ namespace MVC_Group7_demo_PLL.Controllers
 
             ModelState.AddModelError("", "Invalid login attempt.");
             return View("LoginPage",model);
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+            return RedirectToAction("LoginPage");
         }
     }
 }
