@@ -33,7 +33,7 @@ namespace MVC_Group7_demo_DAL.Repository.Implementation
             }
         }
 
-        public async Task<(bool, string?)> UpdateAsync(int id, string name, double price, string image, int stock, string desc, int categoryId, string modifiedBy)
+        public async Task<(bool, string?)> UpdateAsync(int id, string name, double price, string image, int stock, string desc, string modifiedBy)
         {
             try
             {
@@ -44,7 +44,7 @@ namespace MVC_Group7_demo_DAL.Repository.Implementation
                     return (false, "Product not found in database");
                 }
 
-                res.Update(name, price, image, stock, desc, categoryId, modifiedBy);
+                res.Update(name, price, image, stock, desc, modifiedBy);
                 await db.SaveChangesAsync();
                 return (true, null);
             }
@@ -79,7 +79,7 @@ namespace MVC_Group7_demo_DAL.Repository.Implementation
         {
             try
             {
-                var res = await db.Products.Where(p => !p.IsDeleted && p.Stock > 0).ToListAsync();
+                var res = await db.Products.Include(p => p.Category).Where(p => !p.IsDeleted).ToListAsync();
 
                 if (res == null || res.Count == 0)
                 {
@@ -98,7 +98,7 @@ namespace MVC_Group7_demo_DAL.Repository.Implementation
         {
             try
             {
-                var res = await db.Products.Where(p => p.ProductId == id).FirstOrDefaultAsync();
+                var res = await db.Products.Include(p => p.Category).Where(p => p.ProductId == id).FirstOrDefaultAsync();
 
                 if (res == null)
                 {
@@ -116,7 +116,7 @@ namespace MVC_Group7_demo_DAL.Repository.Implementation
         {
             try
             {
-                var products = await db.Products.Where(p => p.CategoryId == categoryId && !p.IsDeleted).ToListAsync();
+                var products = await db.Products.Include(p => p.Category).Where(p => p.CategoryId == categoryId && !p.IsDeleted).ToListAsync();
 
                 if (products == null || products.Count == 0)
                     return (new List<Product>(), "No products found for this category");
@@ -132,9 +132,14 @@ namespace MVC_Group7_demo_DAL.Repository.Implementation
         {
             try
             {
-                var res = await db.Products.Include(p => p.Category).Where(p => !p.IsDeleted && p.Name.Contains(name)).ToListAsync();
+                if (string.IsNullOrWhiteSpace(name))
+                    return (null, "Search term is empty");
 
-                if (res == null || res.Count == 0)
+                var keyword = name.Trim().ToLower();
+
+                var res = await db.Products.Include(p => p.Category).Where(p => !p.IsDeleted && p.Name.ToLower().Contains(keyword)).ToListAsync();
+
+                if (res.Count == 0)
                     return (null, "No products found matching the search");
 
                 return (res, null);
@@ -144,6 +149,7 @@ namespace MVC_Group7_demo_DAL.Repository.Implementation
                 return (null, ex.Message);
             }
         }
+
         public async Task<(bool, string?)> UpdateStockAsync(int productId, int newStock, string modifiedBy)
         {
             try
@@ -183,7 +189,27 @@ namespace MVC_Group7_demo_DAL.Repository.Implementation
                 return (false, ex.Message);
             }
         }
+        public async Task<(bool success, string? error)> MoveCategoryProductsAsync(int fromCategoryId, int toCategoryId, string modifiedBy)
+        {
+            try
+            {
 
+                var productsToMove = await db.Products.Where(p => p.CategoryId == fromCategoryId && !p.IsDeleted).ToListAsync();
+
+
+                foreach (var product in productsToMove)
+                {
+                    product.UpdateCategory(toCategoryId, modifiedBy);
+                }
+
+                await db.SaveChangesAsync();
+                return (true, null);
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.Message);
+            }
+        }
 
 
     }

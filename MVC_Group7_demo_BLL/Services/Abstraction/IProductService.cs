@@ -10,6 +10,7 @@ namespace MVC_Group7_demo_BLL.Services.Abstraction
     public interface IProductService
     {
 
+
         Task<(bool, string?)> CreateAsync(CreateProductDto dto);
         Task<(bool, string?)> UpdateAsync(int id, UpdateProductDto dto);
         Task<(bool, string?)> DeleteAsync(int id, string deletedBy);
@@ -22,6 +23,8 @@ namespace MVC_Group7_demo_BLL.Services.Abstraction
         Task<(bool, string?)> DecreaseStockAsync(int productId, int amount, string modifiedBy);
         Task<(bool, string?)> UpdateStockAsync(int productId, int newStock, string modifiedBy);
         Task<(bool, string?)> CheckStockAsync(int productId, int quantity);
+
+
 
 
 
