@@ -9,10 +9,10 @@ namespace MVC_Group7_demo_DAL.Repository.Abstraction
 {
     public interface IAdminRepo
     {
-        (List<Admin>?, string?) GetAllAdmins();
-        (Admin?, string?) GetAdminById(string id);
-        (bool, string?) CreateAdmin(Admin admin);
-        (bool, string?) UpdateAdmin(string id, string adminName, string modifiedBy);
-        (bool, string?) DeleteAdmin(string id, string deletedBy);
+        Task<(Admin?, string?)> GetById(string id);
+        (List<Admin>?, string?) GetAll();
+        Task<(bool, string?)> Create(Admin admin);
+        (bool, string?) Update(string id, string name, string modifiedBy);
+        (bool, string?) Delete(string id, string deletedBy);
     }
 }
