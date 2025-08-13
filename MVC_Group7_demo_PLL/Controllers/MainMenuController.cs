@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MVC_Group7_demo_BLL.ModelVM;
 using MVC_Group7_demo_BLL.Services.Abstraction;
@@ -7,6 +8,8 @@ using MVC_Group7_demo_DAL.Entities;
 
 namespace MVC_Group7_demo_PLL.Controllers
 {
+
+    [Authorize]
     public class MainMenuController : Controller
     {
         private readonly IProductService productService;
@@ -31,6 +34,15 @@ namespace MVC_Group7_demo_PLL.Controllers
             }
 
             return View(products);
+        }
+
+        public async Task<IActionResult> IndexFilter(string categoryName)
+        {
+            var res = await productService.GetAllAsync();
+                
+            var pros = res.Item1.Where(p => p.CategoryName == categoryName).ToList;
+
+            return PartialView("productPartialList", pros);
         }
 
         public async Task<IActionResult> ShowProfile()
@@ -82,5 +94,7 @@ namespace MVC_Group7_demo_PLL.Controllers
 
             return View(res.Item1);
         }
+
+        
     }
 }

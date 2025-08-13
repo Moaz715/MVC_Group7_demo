@@ -74,6 +74,7 @@ namespace MVC_Group7_demo_BLL.Services.Implementation
 
                 var dto = new ReadProductDto
                 {
+                    ProductId = product.ProductId,
                     Name = product.Name,
                     Price = product.Price,
                     Image = product.Image,

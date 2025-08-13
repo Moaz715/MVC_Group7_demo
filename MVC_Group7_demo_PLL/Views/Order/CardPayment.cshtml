@@ -40,12 +40,15 @@
                                    class="form-control form-control-lg"
                                    placeholder="1234 5678 9012 3457"
                                    minlength="19"
-                                   maxlength="19" required />
+                                   maxlength="19"
+                                   pattern="\d{4} \d{4} \d{4} \d{4}"
+                                   required />
                             <label class="form-label" for="typeText">Card Number</label>
                         </div>
                         <img src="https://img.icons8.com/color/48/000000/visa.webp"
-                             alt="visa"
+                             alt="MasterCard"
                              width="64px" />
+                             
                     </div>
 
                     <div class="form-outline mb-4">
@@ -53,6 +56,7 @@
                                id="typeName"
                                class="form-control form-control-lg"
                                placeholder="Cardholder's Name"
+                               pattern="[A-Za-z ]+"
                                required />
                         <label class="form-label" for="typeName">Cardholder's Name</label>
                     </div>
@@ -65,6 +69,7 @@
                                    placeholder="MM/YYYY"
                                    minlength="7"
                                    maxlength="7"
+                                   pattern="(0[1-9]|1[0-2])\/\d{4}"
                                    required />
                             <label class="form-label" for="typeExp">Expiration</label>
                         </div>
@@ -75,10 +80,11 @@
                                    placeholder="•••"
                                    minlength="3"
                                    maxlength="3"
+                                   pattern="\d{3}"
                                    required />
                             <label class="form-label" for="typeCvv">CVV</label>
                         </div>
-                        <button type="submit" class="btn btn-info btn-lg btn-rounded">
+                        <button type="submit" class="btn btn-info btn-lg btn-rounded" asp-controller="Order" asp-action="FinalizeOrder" asp-route-paymentMethod="Credit Card">
                             <i class="fas fa-arrow-right"></i>
                         </button>
                     </div>
@@ -89,6 +95,51 @@
     <!-- End your project here-->
     <!-- MDB -->
     <script type="text/javascript" src="js/mdb.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // Card Number
+            const cardNumber = document.getElementById("typeText");
+            cardNumber.addEventListener("input", function () {
+                if (this.validity.patternMismatch) {
+                    this.setCustomValidity("Please enter a 16-digit card number in the format: 1234 5678 9012 3456");
+                } else {
+                    this.setCustomValidity("");
+                }
+            });
+
+            // Cardholder's Name
+            const cardName = document.getElementById("typeName");
+            cardName.addEventListener("input", function () {
+                if (this.validity.patternMismatch) {
+                    this.setCustomValidity("Name can only contain letters and spaces.");
+                } else {
+                    this.setCustomValidity("");
+                }
+            });
+
+            // Expiration Date
+            const cardExp = document.getElementById("typeExp");
+            cardExp.addEventListener("input", function () {
+                if (this.validity.patternMismatch) {
+                    this.setCustomValidity("Please enter a valid expiration date in MM/YYYY format.");
+                } else {
+                    this.setCustomValidity("");
+                }
+            });
+
+            // CVV
+            const cardCvv = document.getElementById("typeCvv");
+            cardCvv.addEventListener("input", function () {
+                if (this.validity.patternMismatch) {
+                    this.setCustomValidity("CVV must be exactly 3 digits.");
+                } else {
+                    this.setCustomValidity("");
+                }
+            });
+
+        });
+    </script>
     <!-- Custom scripts -->
     <script type="text/javascript"></script>
 </body>

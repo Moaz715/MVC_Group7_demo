@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -26,6 +27,7 @@
                         <a class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active" : "")"
                            aria-current="page" asp-controller="MainMenu" asp-action="Index">Home</a>
                     </li>
+                    <!-- Shop Dropdown -->
                     <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
@@ -38,9 +40,20 @@
                     </li>
                 </ul>
 
+
+                <!-- Categories (for customers to browse) -->
+                <li class="nav-item">
+                    <a class="btn btn-outline-primary rounded-pill px-3 py-2 ms-2" asp-controller="Category" asp-action="GetAll">
+                        <i class="bi bi-grid-3x3-gap-fill me-1"></i> Categories
+                    </a>
+                </li>
+
+
+
+
                 <!-- Search Form -->
-                <form class="d-flex me-2" asp-controller="MainMenu" asp-action="Search" method="get">
-                    <input class="form-control me-2" type="search" name="searchTerm"
+                <form class="d-flex me-2" asp-controller="Product" asp-action="Search" method="get">
+                    <input class="form-control me-2" type="search" name="name"
                            placeholder="Search products..." aria-label="Search"
                            value="@ViewBag.SearchTerm" style="min-width: 200px;">
                     <button class="btn btn-outline-success" type="submit">

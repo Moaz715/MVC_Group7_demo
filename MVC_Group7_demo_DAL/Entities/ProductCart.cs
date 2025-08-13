@@ -41,6 +41,24 @@ namespace MVC_Group7_demo_DAL.Entities
 
         public string? DeletedBy { get; private set; }
 
+        public void reactivate()
+        {
+            this.isDeleted = false;
+            this.DeletedOn = null;
+            this.DeletedBy = null;
+        }
+        public ProductCart()
+        {
+           
+        }
+        public ProductCart(int cartId, int productId, string? createdBy)
+        {
+            this.Cartid = cartId;
+            this.Productid = productId;
+            this.CreatedOn = DateTime.Now;
+            this.CreatedBy = createdBy;
+        }
+
         public void delete(string deletedBy)
         {
             this.isDeleted = true;

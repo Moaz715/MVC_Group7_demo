@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MVC_Group7_demo_BLL.ModelVM;
 using MVC_Group7_demo_BLL.Services.Abstraction;
@@ -6,6 +7,7 @@ using MVC_Group7_demo_DAL.Entities;
 
 namespace MVC_Group7_demo_PLL.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
 

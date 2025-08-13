@@ -56,7 +56,10 @@ namespace MVC_Group7_demo_BLL.Services.Implementation
             //Console.WriteLine($"Looking for ProductId: {readProduct.ProductId}");
             var productRes = await productRepo.GetByIdAsync(readProduct.ProductId);
             if (productRes.Item1 == null)
+            {
+                //Console.WriteLine("dsadasd : " + readProduct.ProductId);
                 return (false, "Product not found");
+            }
 
             var product = productRes.Item1;
 
@@ -95,19 +98,22 @@ namespace MVC_Group7_demo_BLL.Services.Implementation
 
             foreach (var po in currentOrder.ProductOrders)
             {
-                Console.WriteLine($"PO ID: {po.ProductOrderId}, Product ID: {po.Productid}, Quantity: {po.Quantity}");
-
-                if (po.Product != null)
+                if (po.isDeleted == false)
                 {
-                    Console.WriteLine($"Product Name: {po.Product.Name}, Price: {po.Product.Price}");
-                    debugTotalPrice += po.Quantity * po.Product.Price;
-                }
-                else
-                {
-                    Console.WriteLine($" Product with ID {po.Productid} not loaded");
-                }
+                    Console.WriteLine($"PO ID: {po.ProductOrderId}, Product ID: {po.Productid}, Quantity: {po.Quantity}");
 
-                debugTotalItems += po.Quantity;
+                    if (po.Product != null)
+                    {
+                        Console.WriteLine($"Product Name: {po.Product.Name}, Price: {po.Product.Price}");
+                        debugTotalPrice += po.Quantity * po.Product.Price;
+                    }
+                    else
+                    {
+                        Console.WriteLine($" Product with ID {po.Productid} not loaded");
+                    }
+
+                    debugTotalItems += po.Quantity;
+                }
             }
 
             Console.WriteLine($"[DEBUG] TOTAL ITEMS: {debugTotalItems}");

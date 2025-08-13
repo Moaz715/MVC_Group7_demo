@@ -27,15 +27,22 @@ namespace MVC_Group7_demo_PLL
             builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme)
             .AddCookie(IdentityConstants.ApplicationScheme, options =>
             {
-                options.LoginPath = "/Account/Login";
+                options.LoginPath = "/Account/LoginPage";
                 options.AccessDeniedPath = "/Account/AccessDenied";
             });
 
-            builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddRoles<IdentityRole>()
+            builder.Services.AddIdentityCore<ApplicationUser>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = true;
+                //options.User.RequireUniqueEmail = true;
+            })
+                .AddRoles<IdentityRole>()   
                 .AddEntityFrameworkStores<Context>()
                 .AddSignInManager<SignInManager<ApplicationUser>>()
                 .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>(TokenOptions.DefaultProvider);
+
+
+            builder.Services.AddTransient<IEmailSender, EmailSender>();
 
             builder.Services.AddScoped<IAdminRepo, AdminRepo>();
             builder.Services.AddScoped<ICartRepo, CartRepo>();

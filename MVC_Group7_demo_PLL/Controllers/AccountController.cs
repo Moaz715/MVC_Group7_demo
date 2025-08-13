@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MVC_Group7_demo_BLL.ModelVM;
 using MVC_Group7_demo_BLL.Services.Abstraction;
+using MVC_Group7_demo_BLL.Services.Implementation;
 using MVC_Group7_demo_DAL.Entities;
 
 namespace MVC_Group7_demo_PLL.Controllers
@@ -11,12 +12,17 @@ namespace MVC_Group7_demo_PLL.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly ICustomerServices customerServices;
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly IEmailSender emailSender;
 
-        public AccountController(UserManager<ApplicationUser> userManager, ICustomerServices customerServices, SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager,
+                         ICustomerServices customerServices,
+                         SignInManager<ApplicationUser> signInManager,
+                         IEmailSender emailSender)
         {
             this.userManager = userManager;
             this.customerServices = customerServices;
             this.signInManager = signInManager;
+            this.emailSender = emailSender;
         }
 
         [HttpGet]
@@ -38,7 +44,7 @@ namespace MVC_Group7_demo_PLL.Controllers
                 UserName = registerVM.Email,
                 Email = registerVM.Email,
                 PhoneNumber = registerVM.Phone,
-                EmailConfirmed = true
+                //EmailConfirmed = true
             };
 
             var res = await userManager.CreateAsync(user, registerVM.Password);
@@ -46,11 +52,26 @@ namespace MVC_Group7_demo_PLL.Controllers
             if (!res.Succeeded)
             {
                 foreach (var error in res.Errors)
-                    ModelState.AddModelError("", error.Description);
+                    Console.WriteLine("" + error.Description);
                 return View("Index", registerVM);
             }
 
             await userManager.AddToRoleAsync(user, "Customer");
+
+
+            // Create the confirmation token
+            var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+
+            // Generate a confirmation link
+            var confirmationLink = Url.Action(nameof(ConfirmEmail), "Account",
+                new { userId = user.Id, token = token }, Request.Scheme);
+
+            // Send the email
+            await emailSender.SendEmailAsync(user.Email, "Confirm your account",
+                $"Please confirm your account by <a href='{confirmationLink}'>clicking here</a>.");
+
+
+
 
             var cusDTO = new CustomerDTO
             {
@@ -64,6 +85,35 @@ namespace MVC_Group7_demo_PLL.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            if (userId == null || token == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var user = await userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            var result = await userManager.ConfirmEmailAsync(user, token);
+
+            if (result.Succeeded)
+            {
+                return View("ConfirmEmail");
+            }
+            else
+            {
+                return View("Error");
+            }
+        }
+
+
 
         [HttpGet]
         public async Task<IActionResult> LoginPage()
@@ -93,11 +143,17 @@ namespace MVC_Group7_demo_PLL.Controllers
 
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "MainMenu");
+                return RedirectToAction("GetAll", "Product");
             }
 
             ModelState.AddModelError("", "Invalid login attempt.");
             return View("LoginPage",model);
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+            return RedirectToAction("LoginPage");
         }
     }
 }

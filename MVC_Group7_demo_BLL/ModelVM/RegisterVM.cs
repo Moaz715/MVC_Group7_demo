@@ -11,8 +11,7 @@ namespace MVC_Group7_demo_BLL.ModelVM
     {
         [Required]
         public string Name { get; set; }
-        [Required]
-        public string Username { get; set; }
+        
         [Required]
         public string Phone { get;  set; }
         [Required]

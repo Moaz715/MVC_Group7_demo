@@ -41,6 +41,20 @@ namespace MVC_Group7_demo_DAL.Entities
         public string? DeletedBy { get; private set; }
 
         
+        public Cart(int numOfItems, string customerId, string? createdBy)
+        {
+            
+            this.numOfItems = numOfItems;
+            CustomerId = customerId;
+            this.CreatedOn = DateTime.Now;
+            this.CreatedBy = createdBy;
+           
+        }
+
+        public Cart()
+        {
+
+        }
 
         public void delete()
         {

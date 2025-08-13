@@ -1,4 +1,5 @@
-﻿using MVC_Group7_demo_DAL.Entities;
+﻿using MVC_Group7_demo_BLL.ModelVM;
+using MVC_Group7_demo_DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,10 @@ namespace MVC_Group7_demo_BLL.Services.Abstraction
 {
     public interface ICartServices
     {
+
+        public Task<(bool, string?)> AddProductToCartAsync(AddProductToCartDTO readproduct, string customerId);
+
+        public Task<(bool, string?)> Delete(int id);
         (bool, string) Create();
 
         (bool, string) Edit();
@@ -17,6 +22,6 @@ namespace MVC_Group7_demo_BLL.Services.Abstraction
 
         (List<Cart>, string?) GetAll();
 
-        (bool, string) Delete(int id);
+        
     }
 }
