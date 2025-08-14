@@ -1,4 +1,5 @@
-﻿using MVC_Group7_demo_DAL.DataBase;
+using Microsoft.EntityFrameworkCore;
+using MVC_Group7_demo_DAL.DataBase;
 using MVC_Group7_demo_DAL.Entities;
 using MVC_Group7_demo_DAL.Repository.Abstraction;
 using System;
@@ -17,12 +18,12 @@ namespace MVC_Group7_demo_DAL.Repository.Implementation
         {
             this.db = db;
         }
-        public (bool, string?) Create(ProductCart productCart)
+        public async Task<(bool, string?)> Create(ProductCart productCart)
         {
             try
             {
-                db.productCarts.Add(productCart);
-                db.SaveChanges();
+                await db.productCarts.AddAsync(productCart);
+                await db.SaveChangesAsync();
                 return (true, null);
 
             }
@@ -32,11 +33,11 @@ namespace MVC_Group7_demo_DAL.Repository.Implementation
             }
         }
 
-        public (bool, string?) Delete(int id, string deletedBy)
+        public async Task<(bool, string?)> Delete(int id, string deletedBy)
         {
             try
             {
-                var res = db.productCarts.Where(po => po.ProductCartId == id).FirstOrDefault();
+                var res = await db.productCarts.Where(po => po.ProductCartId == id).FirstOrDefaultAsync();
 
                 if (res == null)
                 {
@@ -44,7 +45,30 @@ namespace MVC_Group7_demo_DAL.Repository.Implementation
                 }
 
                 res.delete(deletedBy);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
+                return (true, null);
+
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.Message);
+            }
+        }
+
+        public async Task<(bool, string?)> Reactivate(int id)
+        {
+            try
+            {
+                var res = await db.productCarts.Where(po => po.ProductCartId == id).FirstOrDefaultAsync();
+
+                if (res == null)
+                {
+                    return (false, "Does not exist");
+                }
+
+                res.reactivate();
+                await db.SaveChangesAsync();
+
                 return (true, null);
 
             }
