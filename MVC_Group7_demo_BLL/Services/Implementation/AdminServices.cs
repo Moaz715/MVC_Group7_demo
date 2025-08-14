@@ -23,16 +23,16 @@ namespace MVC_Group7_demo_BLL.Services.Implementation
         {
             try
             {
-                // إنشاء Admin entity من AdminDTO
+                
                 var admin = new Admin(
                     userId: adminDTO.UserId,
                     name: adminDTO.Name,
                     createdBy: adminDTO.CreatedBy
                 );
 
-                // استدعاء Repository لإنشاء Admin
-                var result = await adminRepo.Create(admin);
                 
+                var result = await adminRepo.Create(admin);
+
                 Console.WriteLine("In AdminServices Create: " + result.Item1);
                 return result;
             }
@@ -47,7 +47,7 @@ namespace MVC_Group7_demo_BLL.Services.Implementation
         {
             try
             {
-                // استدعاء Repository لجلب Admin بواسطة ID
+                
                 var result = await adminRepo.GetById(id);
 
                 if (result.Item1 == null)
@@ -55,7 +55,7 @@ namespace MVC_Group7_demo_BLL.Services.Implementation
 
                 var adminEntity = result.Item1;
 
-                // تحويل Admin entity إلى AdminDTO
+                
                 var adminDTO = new AdminDTO
                 {
                     UserId = adminEntity.UserId,
@@ -81,8 +81,8 @@ namespace MVC_Group7_demo_BLL.Services.Implementation
         {
             try
             {
-                // استدعاء Repository لجلب جميع Admins
-                var result = adminRepo.GetAll();
+                
+                var result = await adminRepo.GetAll();
 
                 if (result.Item1 == null)
                     return (null, "No admins found");
@@ -90,7 +90,7 @@ namespace MVC_Group7_demo_BLL.Services.Implementation
                 var adminEntities = result.Item1;
                 var adminDTOs = new List<AdminDTO>();
 
-                // تحويل كل Admin entity إلى AdminDTO
+                
                 foreach (var adminEntity in adminEntities)
                 {
                     var adminDTO = new AdminDTO
@@ -121,9 +121,9 @@ namespace MVC_Group7_demo_BLL.Services.Implementation
         {
             try
             {
-                // استدعاء Repository لتحديث Admin
-                var result = adminRepo.Update(id, name, modifiedBy);
                 
+                var result = await adminRepo.Update(id, name, modifiedBy);
+
                 Console.WriteLine("In AdminServices Update: " + result.Item1);
                 return result;
             }
@@ -138,9 +138,9 @@ namespace MVC_Group7_demo_BLL.Services.Implementation
         {
             try
             {
-                // استدعاء Repository لحذف Admin
-                var result = adminRepo.Delete(id, deletedBy);
                 
+                var result = await adminRepo.Delete(id, deletedBy);
+
                 Console.WriteLine("In AdminServices Delete: " + result.Item1);
                 return result;
             }
@@ -151,4 +151,4 @@ namespace MVC_Group7_demo_BLL.Services.Implementation
             }
         }
     }
-} 
+}
