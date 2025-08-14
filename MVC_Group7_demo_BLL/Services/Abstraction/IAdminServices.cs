@@ -15,4 +15,4 @@ namespace MVC_Group7_demo_BLL.Services.Abstraction
         Task<(bool, string?)> UpdateAsync(string id, string name, string modifiedBy);
         Task<(bool, string?)> DeleteAsync(string id, string deletedBy);
     }
-} 
+}
