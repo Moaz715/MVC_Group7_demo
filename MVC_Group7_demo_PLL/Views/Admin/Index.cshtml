@@ -1,0 +1,67 @@
+@model IEnumerable<MVC_Group7_demo_BLL.ModelVM.AdminDTO>
+
+@{
+    ViewData["Title"] = "Admins";
+}
+
+<h2 class="text-center mb-4">Admins</h2>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger mb-4">@ViewBag.Error</div>
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success mb-4">@TempData["Success"]</div>
+}
+
+<div class="mb-3">
+    <a asp-action="Create" class="btn btn-primary">Create New Admin</a>
+</div>
+
+@if (!Model.Any())
+{
+    <p class="text-center">No admins found.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Created On</th>
+                <th>Created By</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.UserId</td>
+                    <td>@item.Name</td>
+                    <td>@item.CreatedOn.ToString("yyyy-MM-dd")</td>
+                    <td>@item.CreatedBy</td>
+                    <td>
+                        @if (item.IsDeleted == true)
+                        {
+                            <span class="badge bg-danger">Deleted</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success">Active</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.UserId" class="btn btn-info btn-sm">Details</a>
+                        <a asp-action="Edit" asp-route-id="@item.UserId" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.UserId" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+} 

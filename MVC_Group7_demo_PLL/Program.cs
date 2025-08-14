@@ -37,6 +37,7 @@ namespace MVC_Group7_demo_PLL
                 .AddSignInManager<SignInManager<ApplicationUser>>()
                 .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>(TokenOptions.DefaultProvider);
 
+            // Repository Registrations
             builder.Services.AddScoped<IAdminRepo, AdminRepo>();
             builder.Services.AddScoped<ICartRepo, CartRepo>();
             builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
@@ -47,7 +48,8 @@ namespace MVC_Group7_demo_PLL
             builder.Services.AddScoped<IProductOrderRepo, ProductOrderRepo>();
             builder.Services.AddScoped<IProductRepo, ProductRepo>();
 
-            //builder.Services.AddScoped<IAdminServices, AdminServices>();
+            // Services Registrations
+            builder.Services.AddScoped<IAdminServices, AdminServices>();
             builder.Services.AddScoped<ICartServices, CartServices>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<ICustomerServices, CustomerServices>();
@@ -56,7 +58,6 @@ namespace MVC_Group7_demo_PLL
             //builder.Services.AddScoped<IProductCartServices, ProductCartServices>();
             builder.Services.AddScoped<IProductOrderServices, ProductOrderServices>();
             builder.Services.AddScoped<IProductService, ProductService>();
-
 
             var app = builder.Build();
 
@@ -85,7 +86,6 @@ namespace MVC_Group7_demo_PLL
 
                 var roles = new[] { "Admin", "Customer"};
 
-
                 foreach (var role in roles)
                 {
                     if (!await roleManager.RoleExistsAsync(role))
@@ -93,12 +93,9 @@ namespace MVC_Group7_demo_PLL
                         await roleManager.CreateAsync(new IdentityRole(role));
                     }
                 }
-
             }
 
             app.Run();
-
-            
         }
     }
 }

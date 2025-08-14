@@ -1,0 +1,54 @@
+@model MVC_Group7_demo_BLL.ModelVM.AdminDTO
+
+@{
+    ViewData["Title"] = "Edit Admin";
+}
+
+<h2>Edit Admin</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="UserId" />
+    
+    <div class="mb-3">
+        <label asp-for="UserId" class="form-label">User ID</label>
+        <input asp-for="UserId" class="form-control" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">Name</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Created On</label>
+        <input value="@Model.CreatedOn.ToString("yyyy-MM-dd")" class="form-control" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Created By</label>
+        <input value="@Model.CreatedBy" class="form-control" readonly />
+    </div>
+
+    @if (Model.ModifiedOn.HasValue)
+    {
+        <div class="mb-3">
+            <label class="form-label">Last Modified</label>
+            <input value="@Model.ModifiedOn.Value.ToString("yyyy-MM-dd")" class="form-control" readonly />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Modified By</label>
+            <input value="@Model.ModifiedBy" class="form-control" readonly />
+        </div>
+    }
+
+    <button type="submit" class="btn btn-warning">Update</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+} 

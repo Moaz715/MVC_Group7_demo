@@ -1,0 +1,56 @@
+@model MVC_Group7_demo_BLL.ModelVM.AdminDTO
+
+@{
+    ViewData["Title"] = "Admin Details";
+}
+
+<h2>Admin Details</h2>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <dl class="row">
+            <dt class="col-sm-4">User ID</dt>
+            <dd class="col-sm-8">@Model.UserId</dd>
+
+            <dt class="col-sm-4">Name</dt>
+            <dd class="col-sm-8">@Model.Name</dd>
+
+            <dt class="col-sm-4">Created On</dt>
+            <dd class="col-sm-8">@Model.CreatedOn.ToString("yyyy-MM-dd")</dd>
+
+            <dt class="col-sm-4">Created By</dt>
+            <dd class="col-sm-8">@Model.CreatedBy</dd>
+
+            @if (Model.ModifiedOn.HasValue)
+            {
+                <dt class="col-sm-4">Modified On</dt>
+                <dd class="col-sm-8">@Model.ModifiedOn.Value.ToString("yyyy-MM-dd")</dd>
+
+                <dt class="col-sm-4">Modified By</dt>
+                <dd class="col-sm-8">@Model.ModifiedBy</dd>
+            }
+
+            <dt class="col-sm-4">Status</dt>
+            <dd class="col-sm-8">
+                @if (Model.IsDeleted == true)
+                {
+                    <span class="badge bg-danger">Deleted</span>
+                }
+                else
+                {
+                    <span class="badge bg-success">Active</span>
+                }
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model.UserId" class="btn btn-warning">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div> 
