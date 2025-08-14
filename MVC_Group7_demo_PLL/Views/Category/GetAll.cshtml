@@ -1,37 +1,31 @@
-﻿@model List<MVC_Group7_demo_BLL.ModelVM.ReadCategoryDto>
-
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model List<MVC_Group7_demo_BLL.ModelVM.ReadCategoryDto>
 @{
     ViewData["Title"] = "All Categories";
     Layout = "~/Views/Shared/newLayout.cshtml";
 }
-
-<!-- Header Section -->
 <div class="container mt-5">
-    <h2 class="text-center mb-4 fw-bold text-primary">Explore Our Categories</h2>
-    <p class="text-center text-muted mb-5">Discover a variety of products organized by category.</p>
+    <h2 class="text-center mb-4 fw-bold text-primary">@SharedLocalizer["GetAll.Title"]</h2>
+    <p class="text-center text-muted mb-5">@SharedLocalizer["GetAll.SubHeader"]</p>
 </div>
-
-<!-- Categories Grid -->
 <div class="container">
     @if (TempData["SuccessMessage"] != null)
     {
         <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
-            @TempData["SuccessMessage"]
+            @SharedLocalizer["SuccessMessage"]
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
-
     @if (TempData["ErrorMessage"] != null)
     {
         <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
-            @TempData["ErrorMessage"]
+            @SharedLocalizer["ErrorMessage"]
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
-
     @if (!Model.Any())
     {
-        <p class="text-center text-muted">No categories found.</p>
+        <p class="text-center text-muted">@SharedLocalizer["GetAll.NoCategories"]</p>
     }
     else
     {
@@ -40,30 +34,26 @@
             {
                 <div class="col">
                     <div class="card h-100 border-0 shadow-sm rounded-3 overflow-hidden">
-                        <!-- Category Image (Placeholder) -->
                         <img src="https://dummyimage.com/400x250/dee2e6/6c757d.jpg" class="card-img-top" alt="@category.Name" style="object-fit: cover; height: 200px;">
-                        <!-- Category Content -->
                         <div class="card-body d-flex flex-column justify-content-between p-4">
                             <div>
                                 <h5 class="card-title text-center fw-bold mb-2">@category.Name</h5>
-                                <p class="card-text text-center text-muted">Contains @category.Products.Count product(s)</p>
+                                <p class="card-text text-center text-muted">@SharedLocalizer["Category.ProductCount"] @category.Products.Count</p>
                             </div>
                             <div class="text-center mt-3">
                                 <a href="@Url.Action("ByCategory", "Product", new { categoryId = category.Id })"
                                    class="btn btn-primary btn-lg w-100 rounded-pill d-flex align-items-center justify-content-center gap-2">
-                                    <i class="bi bi-box-seam"></i> View Products
+                                    <i class="bi bi-box-seam"></i> @SharedLocalizer["GetAll.ViewProducts"]
                                 </a>
-
                             </div>
                         </div>
-                        <!-- Admin Actions -->
                         @if (User.IsInRole("Admin"))
                         {
                             <div class="card-footer bg-transparent border-0 text-center py-2">
                                 <div class="btn-group" role="group">
-                                    <a asp-action="Details" asp-route-id="@category.Id" class="btn btn-info btn-sm me-2">Details</a>
-                                    <a asp-action="Update" asp-route-id="@category.Id" class="btn btn-warning btn-sm me-2">Edit</a>
-                                    <a asp-action="Delete" asp-route-id="@category.Id" class="btn btn-danger btn-sm">Delete</a>
+                                    <a asp-action="Details" asp-route-id="@category.Id" class="btn btn-info btn-sm me-2">@SharedLocalizer["Category.DetailsButton"]</a>
+                                    <a asp-action="Update" asp-route-id="@category.Id" class="btn btn-warning btn-sm me-2">@SharedLocalizer["Category.EditButton"]</a>
+                                    <a asp-action="Delete" asp-route-id="@category.Id" class="btn btn-danger btn-sm">@SharedLocalizer["Category.DeleteButton"]</a>
                                 </div>
                             </div>
                         }

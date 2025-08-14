@@ -1,0 +1,374 @@
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="FinalizeOrderError">
+    <value>فشل في إتمام الطلب.</value>
+  </data>
+  <data name="FinalizeOrderSuccess">
+    <value>تم إتمام طلبك بنجاح!</value>
+  </data>
+  <data name="GetAll.Contains">
+    <value>يحتوي على</value>
+  </data>
+  <data name="GetAll.Delete">
+    <value>حذف</value>
+  </data>
+  <data name="GetAll.Details">
+    <value>التفاصيل</value>
+  </data>
+  <data name="GetAll.Edit">
+    <value>تعديل</value>
+  </data>
+  <data name="GetAll.Header">
+    <value>استكشف فئاتنا</value>
+  </data>
+  <data name="GetAll.NoCategories">
+    <value>لم يتم العثور على فئات.</value>
+  </data>
+  <data name="GetAll.Products">
+    <value>منتجات</value>
+  </data>
+  <data name="GetAll.SubHeader">
+    <value>اكتشف مجموعة متنوعة من المنتجات منظمة حسب الفئة.</value>
+  </data>
+  <data name="GetAll.Title">
+    <value>جميع الفئات</value>
+  </data>
+  <data name="GetAll.ViewProducts">
+    <value>عرض المنتجات</value>
+  </data>
+  <data name="LoginRequiredError">
+    <value>يجب تسجيل الدخول لتنفيذ هذا الإجراء.</value>
+  </data>
+  <data name="newLayout.About">
+    <value>حول</value>
+  </data>
+  <data name="newLayout.AllProducts">
+    <value>جميع المنتجات</value>
+  </data>
+  <data name="newLayout.Categories">
+    <value>الفئات</value>
+  </data>
+  <data name="newLayout.Home">
+    <value>الرئيسية</value>
+  </data>
+  <data name="newLayout.Login">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="newLayout.Logout">
+    <value>تسجيل الخروج</value>
+  </data>
+  <data name="newLayout.MyProfile">
+    <value>ملفي الشخصي</value>
+  </data>
+  <data name="newLayout.NavbarBrand">
+    <value>متجري</value>
+  </data>
+  <data name="newLayout.SearchButton">
+    <value>بحث</value>
+  </data>
+  <data name="newLayout.SearchPlaceholder">
+    <value>البحث عن المنتجات...</value>
+  </data>
+  <data name="newLayout.Shop">
+    <value>تسوق</value>
+  </data>
+  <data name="newLayout.SiteTitle">
+    <value>المتجر</value>
+  </data>
+  <data name="newLayout.ViewOrder">
+    <value>عرض الطلب</value>
+  </data>
+  <data name="NotFoundError">
+    <value>العنصر غير موجود.</value>
+  </data>
+  <data name="Success">
+    <value>تمت إضافة المنتج إلى الطلب!</value>
+  </data>
+  <data name="SuccessMessage">
+    <value>تمت العملية بنجاح!</value>
+  </data>
+  <data name="ErrorMessage">
+    <value>حدث خطأ.</value>
+  </data>
+  <data name="SignUp.Header">
+    <value>تسجيل الاشتراك</value>
+  </data>
+  <data name="SignUp.NameLabel">
+    <value>الاسم</value>
+  </data>
+  <data name="SignUp.EmailLabel">
+    <value>البريد الإلكتروني</value>
+  </data>
+  <data name="SignUp.PasswordLabel">
+    <value>كلمة المرور</value>
+  </data>
+  <data name="SignUp.PhoneLabel">
+    <value>رقم الهاتف</value>
+  </data>
+  <data name="SignUp.LocationLabel">
+    <value>الموقع</value>
+  </data>
+  <data name="SignUp.SubmitButton">
+    <value>إرسال</value>
+  </data>
+  <data name="Login.Header">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="Login.EmailLabel">
+    <value>البريد الإلكتروني</value>
+  </data>
+  <data name="Login.PasswordLabel">
+    <value>كلمة المرور</value>
+  </data>
+  <data name="Login.RememberMe">
+    <value>تذكرني</value>
+  </data>
+  <data name="Category.Details.Title">
+    <value>تفاصيل الفئة</value>
+  </data>
+  <data name="Category.ProductsLabel">
+    <value>المنتجات:</value>
+  </data>
+  <data name="Category.NoProducts">
+    <value>لا يوجد منتجات في هذه الفئة.</value>
+  </data>
+  <data name="Category.BackButton">
+    <value>العودة للقائمة</value>
+  </data>
+  <data name="Category.EditButton">
+    <value>تعديل</value>
+  </data>
+  <data name="Category.DeleteButton">
+    <value>حذف</value>
+  </data>
+  <data name="Category.ProductCount">
+    <value>يحتوي على</value>
+  </data>
+  <data name="Category.DetailsButton">
+    <value>التفاصيل</value>
+  </data>
+  <data name="Shop.Header.Title">
+    <value>تسوق بأناقة</value>
+  </data>
+  <data name="Shop.Header.Subtitle">
+    <value>تصفح منتجاتنا المذهلة</value>
+  </data>
+  <data name="Shop.SearchResults">
+    <value>عرض النتائج لـ:</value>
+  </data>
+  <data name="Shop.NoProducts.Title">
+    <value>لا يوجد منتجات متاحة حالياً.</value>
+  </data>
+  <data name="Shop.NoProducts.Message">
+    <value>يرجى المراجعة لاحقاً!</value>
+  </data>
+  <data name="Shop.LowStock">
+    <value>المخزون منخفض</value>
+  </data>
+  <data name="Shop.OutOfStock">
+    <value>نفذ المخزون</value>
+  </data>
+  <data name="Shop.StockLabel">
+    <value>المخزون:</value>
+  </data>
+  <data name="Shop.AddToOrder">
+    <value>أضف إلى الطلب</value>
+  </data>
+  <data name="Shop.OutOfStockButton">
+    <value>نفذ المخزون</value>
+  </data>
+  <data name="Profile.Header">
+    <value>ملفي الشخصي</value>
+  </data>
+  <data name="Profile.UsernameLabel">
+    <value>اسم المستخدم</value>
+  </data>
+  <data name="Profile.EmailLabel">
+    <value>البريد الإلكتروني</value>
+  </data>
+  <data name="Profile.BackButton">
+    <value>العودة للرئيسية</value>
+  </data>
+  <data name="Profile.ViewOrdersButton">
+    <value>عرض الطلبات</value>
+  </data>
+  <data name="Profile.EditButton">
+    <value>تعديل الملف الشخصي</value>
+  </data>
+  <data name="Order.Current.Title">
+    <value>طلبي الحالي</value>
+  </data>
+  <data name="Order.NoActiveOrder">
+    <value>ليس لديك أي طلبات نشطة.</value>
+  </data>
+  <data name="Order.TotalPriceLabel">
+    <value>السعر الإجمالي:</value>
+  </data>
+  <data name="Order.ItemCountLabel">
+    <value>عدد العناصر:</value>
+  </data>
+  <data name="Order.ProductColumn">
+    <value>المنتج</value>
+  </data>
+  <data name="Order.ImageColumn">
+    <value>الصورة</value>
+  </data>
+  <data name="Order.QuantityColumn">
+    <value>الكمية</value>
+  </data>
+  <data name="Order.UnitPriceColumn">
+    <value>سعر الوحدة</value>
+  </data>
+  <data name="Order.SubtotalColumn">
+    <value>المجموع الفرعي</value>
+  </data>
+  <data name="Order.BackButton">
+    <value>العودة</value>
+  </data>
+  <data name="Order.DeleteButton">
+    <value>حذف الطلب</value>
+  </data>
+  <data name="Order.DeleteConfirm">
+    <value>هل أنت متأكد من حذف هذا الطلب؟</value>
+  </data>
+  <data name="Order.EditButton">
+    <value>تعديل الطلب</value>
+  </data>
+  <data name="Order.CheckoutButton">
+    <value>الدفع</value>
+  </data>
+  <data name="Payment.Title">
+    <value>تصميم المادة لنظام البوتستراب</value>
+  </data>
+  <data name="Payment.CardNumberLabel">
+    <value>رقم البطاقة</value>
+  </data>
+  <data name="Payment.CardNumberPlaceholder">
+    <value>1234 5678 9012 3457</value>
+  </data>
+  <data name="Payment.CardholderLabel">
+    <value>اسم حامل البطاقة</value>
+  </data>
+  <data name="Payment.CardholderPlaceholder">
+    <value>اسم حامل البطاقة</value>
+  </data>
+  <data name="Payment.ExpirationLabel">
+    <value>تاريخ الانتهاء</value>
+  </data>
+  <data name="Payment.ExpirationPlaceholder">
+    <value>MM/YYYY</value>
+  </data>
+  <data name="Payment.CVVLabel">
+    <value>CVV</value>
+  </data>
+  <data name="Payment.CardNumberValidation">
+    <value>يرجى إدخال رقم بطاقة مكون من 16 رقمًا بتنسيق: 1234 5678 9012 3456</value>
+  </data>
+  <data name="Payment.CardholderValidation">
+    <value>الاسم يمكن أن يحتوي فقط على حروف ومسافات.</value>
+  </data>
+  <data name="Payment.ExpirationValidation">
+    <value>يرجى إدخال تاريخ انتهاء صالح بتنسيق MM/YYYY.</value>
+  </data>
+  <data name="Payment.CVVValidation">
+    <value>يجب أن يكون CVV مكونًا من 3 أرقام.</value>
+  </data>
+  <data name="Payment.ChooseTitle">
+    <value>اختر طريقة الدفع الخاصة بك</value>
+  </data>
+  <data name="Payment.ChooseDescription">
+    <value>يرجى اختيار كيفية دفع طلبك.</value>
+  </data>
+  <data name="Payment.CardButton">
+    <value>الدفع بالبطاقة</value>
+  </data>
+  <data name="Payment.CashButton">
+    <value>الدفع نقدًا</value>
+  </data>
+  <data name="Order.Edit.Title">
+    <value>تعديل طلبك</value>
+  </data>
+  <data name="Order.ApplyChangesButton">
+    <value>تطبيق التغييرات</value>
+  </data>
+  <data name="Order.RemoveColumn">
+    <value>إزالة</value>
+  </data>
+  <data name="Order.Finalized.Title">
+    <value>الطلبات المنتهية</value>
+  </data>
+  <data name="Order.TotalPriceColumn">
+    <value>السعر الإجمالي</value>
+  </data>
+  <data name="Order.ItemCountColumn">
+    <value>عدد العناصر</value>
+  </data>
+  <data name="Order.LocationColumn">
+    <value>موقع العميل</value>
+  </data>
+  <data name="Order.DeliveryNameColumn">
+    <value>اسم التوصيل</value>
+  </data>
+  <data name="Order.FinalizedOnColumn">
+    <value>تم الإنهاء في</value>
+  </data>
+  <data name="Order.PaymentMethodColumn">
+    <value>طريقة الدفع</value>
+  </data>
+  <data name="Order.ActionsColumn">
+    <value>الإجراءات</value>
+  </data>
+  <data name="Order.ViewButton">
+    <value>عرض</value>
+  </data>
+  <data name="Order.CancelButton">
+    <value>إلغاء</value>
+  </data>
+  <data name="Product.PriceLabel">
+    <value>السعر:</value>
+  </data>
+  <data name="Product.StockLabel">
+    <value>المخزون:</value>
+  </data>
+  <data name="Product.DescriptionLabel">
+    <value>الوصف:</value>
+  </data>
+  <data name="Product.BackButton">
+    <value>العودة للمنتجات</value>
+  </data>
+  <data name="Product.FilterLabel">
+    <value>تصفية حسب الفئة:</value>
+  </data>
+  <data name="Product.AllFilter">
+    <value>الكل</value>
+  </data>
+  <data name="Product.FruitsFilter">
+    <value>الفواكه</value>
+  </data>
+  <data name="Product.VegetablesFilter">
+    <value>الخضروات</value>
+  </data>
+  <data name="Product.NoProducts">
+    <value>لا يوجد منتجات.</value>
+  </data>
+  <data name="Product.DetailsButton">
+    <value>التفاصيل</value>
+  </data>
+  <data name="newLayout.PopularItems">
+    <value>العناصر الشائعة</value>
+  </data>
+  <data name="newLayout.NewArrivals">
+    <value>الواردات الجديدة</value>
+  </data>
+</root>
