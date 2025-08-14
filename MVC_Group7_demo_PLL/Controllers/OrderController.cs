@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using MVC_Group7_demo_BLL.ModelVM;
@@ -7,6 +8,7 @@ using MVC_Group7_demo_DAL.Entities;
 
 namespace MVC_Group7_demo_PLL.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
 
@@ -172,6 +174,7 @@ namespace MVC_Group7_demo_PLL.Controllers
             ModelState.AddModelError("", res.Item2 ?? "Failed to apply changes.");
             return View(orderEditDTO);
         }
+
         [HttpGet]
         public IActionResult SetLanguage(string culture, string returnUrl)
         {
@@ -183,6 +186,5 @@ namespace MVC_Group7_demo_PLL.Controllers
 
             return LocalRedirect(returnUrl);
         }
-
     }
 }
