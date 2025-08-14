@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using MVC_Group7_demo_BLL.ModelVM;
@@ -8,6 +9,8 @@ using MVC_Group7_demo_DAL.Entities;
 
 namespace MVC_Group7_demo_PLL.Controllers
 {
+
+    [Authorize]
     public class MainMenuController : Controller
     {
         private readonly IProductService productService;
@@ -34,13 +37,22 @@ namespace MVC_Group7_demo_PLL.Controllers
             return View(products);
         }
 
+        public async Task<IActionResult> IndexFilter(string categoryName)
+        {
+            var res = await productService.GetAllAsync();
+                
+            var pros = res.Item1.Where(p => p.CategoryName == categoryName).ToList;
+
+            return PartialView("productPartialList", pros);
+        }
+
         public async Task<IActionResult> ShowProfile()
         {
             var user = await userManager.GetUserAsync(User);
 
             if (user == null)
             {
-                return RedirectToAction("Login", "Account"); 
+                return RedirectToAction("LoginPage", "Account"); 
             }
 
             return View(user);  
@@ -54,7 +66,7 @@ namespace MVC_Group7_demo_PLL.Controllers
             if (user == null)
             {
                 TempData["Error"] = "You must be logged in to add products to your order.";
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("LoginPage", "Account");
             }
 
             //Console.WriteLine("In Controller : " + user.Id);
@@ -76,13 +88,14 @@ namespace MVC_Group7_demo_PLL.Controllers
             if (user == null)
             {
                 TempData["Error"] = "You must be logged in to add products to your order.";
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("LoginPage", "Account");
             }
 
             var res = await ordersServices.GetCurrentOrder(user.Id);
 
             return View(res.Item1);
         }
+
         [HttpGet]
         public IActionResult SetLanguage(string culture, string returnUrl)
         {
@@ -94,6 +107,7 @@ namespace MVC_Group7_demo_PLL.Controllers
 
             return LocalRedirect(returnUrl);
         }
+
 
     }
 }
