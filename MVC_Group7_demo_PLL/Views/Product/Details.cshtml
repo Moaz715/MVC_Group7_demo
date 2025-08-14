@@ -18,6 +18,37 @@
         <p class="card-text"><strong>@SharedLocalizer["Product.PriceLabel"]</strong> $@Model.Price.ToString("F2")</p>
         <p class="card-text"><strong>@SharedLocalizer["Product.StockLabel"]</strong> @Model.Stock</p>
         <p class="card-text"><strong>@SharedLocalizer["Product.DescriptionLabel"]</strong> @Model.Description</p>
+
+        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="d-flex flex-column align-items-start gap-3">
+                @if (Model.Stock > 0)
+                {
+                    <form asp-controller="MainMenu" asp-action="AddToOrder" method="post" class="d-flex justify-content-center align-items-center gap-2">
+                        <!-- Hidden ProductId -->
+                        <input type="hidden" readonly name="ProductId" value="@Model.ProductId" />
+
+                        <!-- Quantity input -->
+                        <input type="number" name="Quantity" value="1" min="1" max="@Model.Stock" class="form-control form-control-sm" style="width: 70px;" />
+
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-outline-dark btn-sm">Add to Order</button>
+
+
+                    </form>
+
+                    <!-- Add to Wishlist button -->
+                    <form asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.ProductId" method="post">
+                        <input type="hidden" readonly name="ProductId" value="@Model.ProductId" />
+                        <button type="submit" class="btn btn-outline-primary btn-sm">Add to Wishlist</button>
+                    </form>
+                }
+                else
+                {
+                    <button class="btn btn-secondary mt-auto" disabled>Out of Stock</button>
+                }
+            </div>
+        </div>
+
     </div>
 </div>
 <a asp-action="GetAll" class="btn btn-secondary mt-3">@SharedLocalizer["Product.BackButton"]</a>
