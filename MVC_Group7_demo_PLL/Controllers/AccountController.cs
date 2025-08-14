@@ -38,10 +38,10 @@ namespace MVC_Group7_demo_PLL.Controllers
         [HttpPost]
         public async Task<IActionResult> SignUp(RegisterVM registerVM)
         {
-            if (!ModelState.IsValid)
-            {
-                return View("Index", registerVM);
-            }
+            //if (!ModelState.IsValid)
+            //{
+             //   return View("Index", registerVM);
+            //}
 
             var user = new ApplicationUser
             {

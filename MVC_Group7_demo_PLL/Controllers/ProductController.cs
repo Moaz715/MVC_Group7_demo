@@ -145,10 +145,10 @@ namespace MVC_Group7_demo_PLL.Controllers
             return RedirectToAction(nameof(GetAll));
         }
 
-        // ---------------- USER VIEWS ----------------
+        //  USER 
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> GetAll()
         {
             var result = await productService.GetAllAsync();
@@ -163,7 +163,7 @@ namespace MVC_Group7_demo_PLL.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> Details(int id)
         {
             var result = await productService.GetByIdAsync(id);
@@ -177,7 +177,7 @@ namespace MVC_Group7_demo_PLL.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> ByCategory(int categoryId)
         {
             var result = await productService.GetByCategoryIdAsync(categoryId);
@@ -194,7 +194,7 @@ namespace MVC_Group7_demo_PLL.Controllers
             return View("GetAll", result.Item1);
         }
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> Search(string name)
         {
             var result = await productService.SearchByNameAsync(name);
