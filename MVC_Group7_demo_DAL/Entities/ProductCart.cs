@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
@@ -40,6 +40,24 @@ namespace MVC_Group7_demo_DAL.Entities
         public DateTime? DeletedOn { get; private set; }
 
         public string? DeletedBy { get; private set; }
+
+        public void reactivate()
+        {
+            this.isDeleted = false;
+            this.DeletedOn = null;
+            this.DeletedBy = null;
+        }
+        public ProductCart()
+        {
+           
+        }
+        public ProductCart(int cartId, int productId, string? createdBy)
+        {
+            this.Cartid = cartId;
+            this.Productid = productId;
+            this.CreatedOn = DateTime.Now;
+            this.CreatedBy = createdBy;
+        }
 
         public void delete(string deletedBy)
         {
