@@ -41,7 +41,7 @@ namespace MVC_Group7_demo_PLL
             builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme)
             .AddCookie(IdentityConstants.ApplicationScheme, options =>
             {
-                options.LoginPath = "/Account/Login";
+                options.LoginPath = "/Account/LoginPage";
                 options.AccessDeniedPath = "/Account/AccessDenied";
             });
 
@@ -62,6 +62,8 @@ namespace MVC_Group7_demo_PLL
             builder.Services.AddScoped<IProductOrderRepo, ProductOrderRepo>();
             builder.Services.AddScoped<IProductRepo, ProductRepo>();
 
+
+            builder.Services.AddTransient<IEmailSender, EmailSender>();
             // Services Registrations
             builder.Services.AddScoped<IAdminServices, AdminServices>();
             builder.Services.AddScoped<ICartServices, CartServices>();
