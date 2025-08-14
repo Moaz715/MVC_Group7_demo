@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,17 +14,19 @@ namespace MVC_Group7_demo_PLL.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly ICustomerServices customerServices;
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly IAdminServices adminServices;
         private readonly IEmailSender emailSender;
 
         public AccountController(UserManager<ApplicationUser> userManager,
                          ICustomerServices customerServices,
                          SignInManager<ApplicationUser> signInManager,
-                         IEmailSender emailSender)
+                         IEmailSender emailSender, IAdminServices adminServices)
         {
             this.userManager = userManager;
             this.customerServices = customerServices;
             this.signInManager = signInManager;
             this.emailSender = emailSender;
+            this.adminServices = adminServices;
         }
 
         [HttpGet]
@@ -84,9 +87,57 @@ namespace MVC_Group7_demo_PLL.Controllers
             await customerServices.CreateAsync(cusDTO);
 
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("LoginPage");
         }
 
+
+        //[Authorize(Roles = "Admin")]
+        [HttpGet]
+        public IActionResult RegisterAdmin()
+        {
+            return View();
+        }
+
+        //[Authorize(Roles = "Admin")]
+        [HttpPost]
+        public async Task<IActionResult> RegisterAdmin(RegisterAVM registerAVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("RegisterAdmin", registerAVM);
+            }
+
+            var user = new ApplicationUser
+            {
+                UserName = registerAVM.Email,
+                Email = registerAVM.Email,
+                EmailConfirmed = true
+            };
+
+            var res = await userManager.CreateAsync(user, registerAVM.Password);
+
+            if (!res.Succeeded)
+            {
+                foreach (var error in res.Errors)
+                    Console.WriteLine("" + error.Description);
+                return View("RegisterAdmin", registerAVM);
+            }
+
+            await userManager.AddToRoleAsync(user, "Admin");
+
+
+
+            var adminDTO = new AdminDTO
+            {
+                UserId = user.Id,
+                Name = registerAVM.Name
+            };
+
+            await adminServices.CreateAsync(adminDTO);
+
+
+            return RedirectToAction("Index", "Admin");
+        }
 
         [HttpGet]
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
@@ -144,13 +195,24 @@ namespace MVC_Group7_demo_PLL.Controllers
 
             if (result.Succeeded)
             {
-                return RedirectToAction("GetAll", "Product");
+                var roles = await userManager.GetRolesAsync(user);
+
+                if (roles.Contains("Admin"))
+                {
+                    return RedirectToAction("Index", "Admin");
+
+                }else if (roles.Contains("Customer"))
+                {
+                    return RedirectToAction("GetAll", "Product");
+                }
+                    
             }
 
             ModelState.AddModelError("", "Invalid login attempt.");
             return View("LoginPage",model);
         }
 
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
