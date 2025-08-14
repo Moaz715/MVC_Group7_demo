@@ -1,4 +1,4 @@
-﻿using MVC_Group7_demo_DAL.Entities;
+using MVC_Group7_demo_DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +10,9 @@ namespace MVC_Group7_demo_DAL.Repository.Abstraction
     public interface IAdminRepo
     {
         Task<(Admin?, string?)> GetById(string id);
-        (List<Admin>?, string?) GetAll();
+        public Task<(List<Admin>?, string?)> GetAll();
         Task<(bool, string?)> Create(Admin admin);
-        (bool, string?) Update(string id, string name, string modifiedBy);
-        (bool, string?) Delete(string id, string deletedBy);
+        public Task<(bool, string?)> Update(string id, string adminName, string modifiedBy);
+        public Task<(bool, string?)> Delete(string id, string deletedBy);
     }
 }
