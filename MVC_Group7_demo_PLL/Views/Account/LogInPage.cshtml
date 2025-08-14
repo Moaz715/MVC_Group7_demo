@@ -1,23 +1,24 @@
-﻿@using MVC_Group7_demo_BLL.ModelVM
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using MVC_Group7_demo_BLL.ModelVM
 @model LogInVm
 @{
     Layout = "/Views/Shared/newLayout.cshtml";
 }
 <div class="card">
     <div class="card-header">
-        LogIn
+        @SharedLocalizer["Login.Header"]
     </div>
     <div class="card-body">
         <form asp-controller="Account" asp-action="Login" enctype="multipart/form-data">
             <div asp-validation-summary="All"></div>
 
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Email</label>
+                <label for="exampleInputPassword1" class="form-label">@SharedLocalizer["Login.EmailLabel"]</label>
                 <input asp-for="Email" type="email" class="form-control" id="exampleInputPassword1">
             </div>
 
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Password</label>
+                <label for="exampleInputEmail1" class="form-label">@SharedLocalizer["Login.PasswordLabel"]</label>
                 <input asp-for="Password" type="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
             </div>
 
@@ -30,7 +31,7 @@
             </div>
 
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">@SharedLocalizer["SignUp.SubmitButton"]</button>
         </form>
     </div>
 </div>

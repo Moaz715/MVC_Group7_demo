@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using MVC_Group7_demo_BLL.Services.Abstraction;
 using MVC_Group7_demo_BLL.Services.Implementation;
@@ -7,6 +9,8 @@ using MVC_Group7_demo_DAL.DataBase;
 using MVC_Group7_demo_DAL.Entities;
 using MVC_Group7_demo_DAL.Repository.Abstraction;
 using MVC_Group7_demo_DAL.Repository.Implementation;
+using MVC_Group7_demo_PLL.Resource;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace MVC_Group7_demo_PLL
@@ -18,7 +22,17 @@ namespace MVC_Group7_demo_PLL
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews()
+                          .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+.AddDataAnnotationsLocalization(options =>
+{
+    options.DataAnnotationLocalizerProvider = (type, factory) =>
+        factory.Create(typeof(SharedResources));
+});
+
+
+
+
 
             var connectionString = builder.Configuration.GetConnectionString("defaultConnection");
 
@@ -70,6 +84,7 @@ namespace MVC_Group7_demo_PLL
 
             app.UseHttpsRedirection();
             app.UseRouting();
+
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -95,6 +110,24 @@ namespace MVC_Group7_demo_PLL
                 }
 
             }
+
+
+            var supportedCultures = new[] {
+                      new CultureInfo("ar-EG"),
+                      new CultureInfo("en-US"),
+                };
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("en-US"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures,
+                RequestCultureProviders = new List<IRequestCultureProvider>
+                {
+                new QueryStringRequestCultureProvider(),
+                new CookieRequestCultureProvider()
+                }
+            });
+
 
             app.Run();
 
