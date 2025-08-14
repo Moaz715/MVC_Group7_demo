@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MVC_Group7_demo_DAL.DataBase;
 using MVC_Group7_demo_DAL.Entities;
 using MVC_Group7_demo_DAL.Repository.Abstraction;
@@ -58,7 +58,7 @@ namespace MVC_Group7_demo_DAL.Repository.Implementation
         {
             try
             {
-                var res = await db.Carts.Where(a => a.isDeleted == false).ToListAsync();
+                var res = await db.Carts.Include(c=>c.ProductCarts).ThenInclude(p=>p.Product).Where(a => a.isDeleted == false).ToListAsync();
 
                 if (res == null)
                 {
@@ -77,7 +77,7 @@ namespace MVC_Group7_demo_DAL.Repository.Implementation
         {
             try
             {
-                var res = await db.Carts.Include(c => c.ProductCarts).Where(a => a.Cart_id == id && !a.isDeleted).FirstOrDefaultAsync();
+                var res = await db.Carts.Include(c => c.ProductCarts).ThenInclude(p=>p.Product).Where(a => a.Cart_id == id && !a.isDeleted).FirstOrDefaultAsync();
 
                 if (res == null)
                 {
@@ -89,6 +89,46 @@ namespace MVC_Group7_demo_DAL.Repository.Implementation
             catch (Exception ex)
             {
                 return (null, ex.Message);
+            }
+        }
+
+        public async Task<(Cart?, string?)> GetByCustomerIdAsync(string customerId)
+        {
+            try
+            {
+                var res = await db.Carts.Include(c => c.ProductCarts).ThenInclude(p => p.Product).Where(a => a.CustomerId == customerId && !a.isDeleted).FirstOrDefaultAsync();
+
+                if (res == null)
+                {
+                    return (null, "Id does not exist in db");
+                }
+
+                return (res, null);
+            }
+            catch (Exception ex)
+            {
+                return (null, ex.Message);
+            }
+        }
+
+        public async Task<(bool, string?)> EditAsync(int id, int cnt)
+        {
+            try
+            {
+                var res = await db.Carts.Where(a => a.Cart_id == id).FirstOrDefaultAsync();
+
+                if (res == null)
+                {
+                    return (false, "Id does not exist in db");
+                }
+
+                res.edit(cnt);
+                db.SaveChanges();
+                return (true, null);
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.Message);
             }
         }
     }
