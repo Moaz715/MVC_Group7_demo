@@ -1,4 +1,4 @@
-﻿using MVC_Group7_demo_DAL.DataBase;
+using MVC_Group7_demo_DAL.DataBase;
 using MVC_Group7_demo_DAL.Entities;
 using MVC_Group7_demo_DAL.Repository.Abstraction;
 using Microsoft.EntityFrameworkCore;
@@ -38,16 +38,16 @@ namespace MVC_Group7_demo_DAL.Repository.Implementation
             }
         }
 
-        public (bool, string?) Delete(string id, string deletedBy)
+        public async Task<(bool, string?)> Delete(string id, string deletedBy)
         {
             try
             {
-                var admin = db.Admins.Where(c => c.UserId == id).FirstOrDefault();
+                var admin = await db.Admins.Where(c => c.UserId == id).FirstOrDefaultAsync();
                 if (admin == null)
                     return (false, "Admin not found");
 
                 admin.Delete(id, deletedBy);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return (true, null);
             }
             catch (Exception ex)
@@ -77,14 +77,14 @@ namespace MVC_Group7_demo_DAL.Repository.Implementation
             }
         }
 
-        public (List<Admin>?, string?) GetAll()
+        public async Task<(List<Admin>?, string?)> GetAll()
         {
             try
             {
-                var res = db.Admins
+                var res = await db.Admins
                     .Include(a => a.User)
                     .Where(c => c.IsDeleted == false)
-                    .ToList();
+                    .ToListAsync();
                 return (res, null);
             }
             catch (Exception ex)
@@ -93,16 +93,16 @@ namespace MVC_Group7_demo_DAL.Repository.Implementation
             }
         }
 
-        public (bool, string?) Update(string id, string adminName, string modifiedBy)
+        public async Task<(bool, string?)> Update(string id, string adminName, string modifiedBy)
         {
             try
             {
-                var existing = db.Admins.Where(c => c.UserId == id).FirstOrDefault();
+                var existing = await db.Admins.Where(c => c.UserId == id).FirstOrDefaultAsync();
                 if (existing == null)
                     return (false, "Admin not found");
 
                 existing.UpdateName(adminName, modifiedBy);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return (true, null);
             }
             catch (Exception ex)
