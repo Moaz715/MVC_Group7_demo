@@ -20,10 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Files\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Resource\SharedResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -36,6 +32,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SharedResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Files\" />
   </ItemGroup>
 
 </Project>

@@ -151,7 +151,8 @@ namespace MVC_Group7_demo_PLL.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
-            var result = await productService.GetAllAsync();
+            var isAdmin = User.IsInRole("Admin");
+            var result = await productService.GetAllAsync(isAdmin);
 
             if (result.Item1 == null)
             {
@@ -180,7 +181,9 @@ namespace MVC_Group7_demo_PLL.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ByCategory(int categoryId)
         {
-            var result = await productService.GetByCategoryIdAsync(categoryId);
+            var isAdmin = User.IsInRole("Admin");
+            var result = await productService.GetByCategoryIdAsync(categoryId, isAdmin);
+
 
             if (result.Item1 == null)
             {
@@ -197,7 +200,8 @@ namespace MVC_Group7_demo_PLL.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Search(string name)
         {
-            var result = await productService.SearchByNameAsync(name);
+            var isAdmin = User.IsInRole("Admin");
+            var result = await productService.SearchByNameAsync(name, isAdmin);
 
             if (result.Item1 == null)
             {
