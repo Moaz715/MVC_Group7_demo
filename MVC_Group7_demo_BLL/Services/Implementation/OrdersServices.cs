@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.IdentityModel.Tokens;
 using MVC_Group7_demo_BLL.ModelVM;
 using MVC_Group7_demo_BLL.Services.Abstraction;
@@ -56,7 +56,10 @@ namespace MVC_Group7_demo_BLL.Services.Implementation
             //Console.WriteLine($"Looking for ProductId: {readProduct.ProductId}");
             var productRes = await productRepo.GetByIdAsync(readProduct.ProductId);
             if (productRes.Item1 == null)
+            {
+                //Console.WriteLine("dsadasd : " + readProduct.ProductId);
                 return (false, "Product not found");
+            }
 
             var product = productRes.Item1;
 
@@ -95,19 +98,22 @@ namespace MVC_Group7_demo_BLL.Services.Implementation
 
             foreach (var po in currentOrder.ProductOrders)
             {
-                Console.WriteLine($"PO ID: {po.ProductOrderId}, Product ID: {po.Productid}, Quantity: {po.Quantity}");
-
-                if (po.Product != null)
+                if (po.isDeleted == false)
                 {
-                    Console.WriteLine($"Product Name: {po.Product.Name}, Price: {po.Product.Price}");
-                    debugTotalPrice += po.Quantity * po.Product.Price;
-                }
-                else
-                {
-                    Console.WriteLine($" Product with ID {po.Productid} not loaded");
-                }
+                    Console.WriteLine($"PO ID: {po.ProductOrderId}, Product ID: {po.Productid}, Quantity: {po.Quantity}");
 
-                debugTotalItems += po.Quantity;
+                    if (po.Product != null)
+                    {
+                        Console.WriteLine($"Product Name: {po.Product.Name}, Price: {po.Product.Price}");
+                        debugTotalPrice += po.Quantity * po.Product.Price;
+                    }
+                    else
+                    {
+                        Console.WriteLine($" Product with ID {po.Productid} not loaded");
+                    }
+
+                    debugTotalItems += po.Quantity;
+                }
             }
 
             Console.WriteLine($"[DEBUG] TOTAL ITEMS: {debugTotalItems}");
@@ -286,6 +292,8 @@ namespace MVC_Group7_demo_BLL.Services.Implementation
         {
             try
             {
+
+
                 var res = await ordersRepo.GetFinalizedOrders(customerId);
 
                 var CustomerOrders = res.Item1;
@@ -306,6 +314,7 @@ namespace MVC_Group7_demo_BLL.Services.Implementation
                         NumOfItems = o.numOfItems,
                         CustomerLocation = o.customer.Location,
                         DeliveryName = o.delivery.Name,
+                        DeliveryPhone = o.delivery.Phone,
                         FinalizedOn = o.finalizedOn,
                         PaymentMethod = o.paymentMethod
                     });
@@ -333,7 +342,14 @@ namespace MVC_Group7_demo_BLL.Services.Implementation
         {
             try
             {
-                var res = await ordersRepo.FinalizeOrderAsync(customerId, paymentMethod);
+                var customerResult = await customerRepo.GetById(customerId);
+                if (customerResult.Item1 == null)
+                    return (false, "Customer not found");
+
+                string createdBy = customerResult.Item1.Location;
+
+
+                var res = await ordersRepo.FinalizeOrderAsync(customerId, paymentMethod, createdBy);
                 
                 if(res.Item1 == false)
                 {
