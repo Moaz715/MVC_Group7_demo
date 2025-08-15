@@ -844,6 +844,15 @@ namespace MVC_Group7_demo_PLL.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Product_DeleteButton {
+            get {
+                return ResourceManager.GetString("Product.DeleteButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description:.
         /// </summary>
         public static string Product_DescriptionLabel {
@@ -858,6 +867,15 @@ namespace MVC_Group7_demo_PLL.Resource {
         public static string Product_DetailsButton {
             get {
                 return ResourceManager.GetString("Product.DetailsButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string Product_EditButton {
+            get {
+                return ResourceManager.GetString("Product.EditButton", resourceCulture);
             }
         }
         

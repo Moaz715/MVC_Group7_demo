@@ -20,8 +20,8 @@
     }
 </div>
 
-<form asp-action="DeleteConfirmed" method="post">
+<form asp-action="Delete" asp-controller="Product" method="post">
     <input type="hidden" asp-for="ProductId" />
     <button type="submit" class="btn btn-danger">Delete</button>
-    <a asp-action="GetAll" class="btn btn-secondary">Cancel</a>
+    <a asp-action="GetAll" asp-controller="Product" class="btn btn-secondary">Cancel</a>
 </form>

@@ -44,6 +44,19 @@ else
                     <div class="card-footer p-3 pt-0 border-top-0 bg-transparent">
                         <div class="text-center">
                             <a class="btn btn-outline-primary btn-sm" asp-action="Details" asp-route-id="@product.ProductId">@SharedLocalizer["Product.DetailsButton"]</a>
+                            @if (User.IsInRole("Admin") )
+                            {
+                                <a class="btn btn-outline-warning btn-sm" asp-action="Update" asp-route-id="@product.ProductId">
+                                    @SharedLocalizer["Product.EditButton"]
+                                </a>
+                            }
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a class="btn btn-outline-danger btn-sm" asp-action="Delete" asp-route-id="@product.ProductId">
+                                    @SharedLocalizer["Product.DeleteButton"]
+                                </a>
+                            }
                         </div>
                     </div>
                 </div>

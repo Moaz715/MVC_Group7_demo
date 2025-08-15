@@ -114,7 +114,7 @@ namespace MVC_Group7_demo_PLL.Controllers
         // USER
 
         [HttpGet]
-        [Authorize(Roles = "Customer")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             var (categories, error) = await categoryService.GetAllAsync();
@@ -129,7 +129,7 @@ namespace MVC_Group7_demo_PLL.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Customer")]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var (category, error) = await categoryService.GetByIdAsync(id);
