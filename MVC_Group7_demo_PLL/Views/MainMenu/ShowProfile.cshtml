@@ -27,14 +27,14 @@
                     </dl>
                 </div>
                 <div class="card-footer text-center">
-                    <a asp-controller="MainMenu" asp-action="Index" class="btn btn-secondary me-2">
-                        <i class="bi bi-arrow-left"></i> @SharedLocalizer["Profile.BackButton"]
+                    <a asp-controller="Product" asp-action="GetAll" class="btn btn-secondary me-2">
+                        <i class="bi bi-arrow-left"></i> Back to Home
                     </a>
                     <a asp-controller="Order" asp-action="ViewFinalizedOrders" class="btn btn-primary">
-                        @SharedLocalizer["Profile.ViewOrdersButton"]
+                         View Orders
                     </a>
-                    <a asp-controller="Account" asp-action="EditProfile" class="btn btn-primary">
-                        <i class="bi bi-pencil-square"></i> @SharedLocalizer["Profile.EditButton"]
+                    <a asp-controller="Account" asp-action="StartResetPassword"  class="btn btn-primary">
+                        <i class="bi bi-pencil-square"></i> Reset Password
                     </a>
                 </div>
             </div>
