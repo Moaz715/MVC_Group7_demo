@@ -1,4 +1,4 @@
-﻿using MVC_Group7_demo_DAL.Entities;
+using MVC_Group7_demo_DAL.Entities;
 
 namespace MVC_Group7_demo_DAL.Repository.Abstraction
 {
@@ -18,7 +18,7 @@ namespace MVC_Group7_demo_DAL.Repository.Abstraction
 
         Task<(List<Orders>?, string?)> GetFinalizedOrders(string customerId);
 
-        Task<(bool, string?)> FinalizeOrderAsync(string customerId, string paymentMethod);
+        Task<(bool, string?)> FinalizeOrderAsync(string customerId, string paymentMethod, string loc);
 
     }
 }
