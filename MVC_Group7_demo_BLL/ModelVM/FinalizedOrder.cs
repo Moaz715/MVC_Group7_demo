@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +18,8 @@ namespace MVC_Group7_demo_BLL.ModelVM
         public string CustomerLocation { get; set; }
 
         public string DeliveryName { get; set; }
+
+        public string DeliveryPhone { get; set; }
 
         public DateTime? FinalizedOn { get; set; }
 
