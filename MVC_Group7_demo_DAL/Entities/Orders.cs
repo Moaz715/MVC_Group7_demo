@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -92,11 +92,12 @@ namespace MVC_Group7_demo_DAL.Entities
             this.ModifiedOn = DateTime.Now;
         }
 
-        public void finalize(string paymentMethod)
+        public void finalize(string paymentMethod, int deliveryId)
         {
             this.isFinalized = true;
             this.finalizedOn = DateTime.Now;
             this.paymentMethod = paymentMethod;
+            this.Delivery_id = deliveryId;
         }
     }
 }
