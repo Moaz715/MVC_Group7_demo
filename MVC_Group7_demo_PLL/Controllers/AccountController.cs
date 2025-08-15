@@ -38,10 +38,10 @@ namespace MVC_Group7_demo_PLL.Controllers
         [HttpPost]
         public async Task<IActionResult> SignUp(RegisterVM registerVM)
         {
-            //if (!ModelState.IsValid)
-            //{
-             //   return View("Index", registerVM);
-            //}
+            if (!ModelState.IsValid)
+            {
+                return View("Index", registerVM);
+            }
 
             var user = new ApplicationUser
             {
@@ -212,12 +212,73 @@ namespace MVC_Group7_demo_PLL.Controllers
             return View("LoginPage",model);
         }
 
+        [HttpGet]
+        [Authorize(Roles ="Customer")] 
+        public async Task<IActionResult> StartResetPassword()
+        {
+            var user = await userManager.GetUserAsync(User);
+            if (user == null)
+                return RedirectToAction("LoginPage");
+
+            var token = await userManager.GeneratePasswordResetTokenAsync(user);
+
+            
+            return RedirectToAction("ResetPassword", new { token,email = user.Email });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ResetPassword(string token, string email)
+        {
+            if(token == null || email == null)
+            {
+                ModelState.AddModelError("", "Invalid password reset token");
+            }
+
+            var model = new ResetPasswordVM
+            {
+                Email = email,
+                Token = token,
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPasswordAction(ResetPasswordVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByEmailAsync(model.Email);
+
+                if(user != null)
+                {
+                    var res = await userManager.ResetPasswordAsync(user, model.Token, model.NewPassword);
+
+                    if (res.Succeeded)
+                    {
+                        return RedirectToAction("Logout");
+                    }
+
+                    foreach(var error in res.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+
+                    return View(model);
+                }
+            }
+
+            return View("ResetPassword",model);
+        }
+
+
         [Authorize]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
             return RedirectToAction("LoginPage");
         }
+
 
         [HttpGet]
         public IActionResult SetLanguage(string culture, string returnUrl)
