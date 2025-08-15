@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MVC_Group7_demo_DAL.DataBase;
 using MVC_Group7_demo_DAL.Entities;
 using MVC_Group7_demo_DAL.Repository.Abstraction;
@@ -50,7 +50,7 @@ namespace MVC_Group7_demo_DAL.Repository.Implementation
                 }
 
                 res.edit(total, cnt, res.customer.Name);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return (true, null);
             }
             catch (Exception ex)
@@ -74,7 +74,7 @@ namespace MVC_Group7_demo_DAL.Repository.Implementation
                 }
 
                 res.delete(res.customer.Name);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return (true, null);
             }
             catch (Exception ex)
@@ -143,7 +143,7 @@ namespace MVC_Group7_demo_DAL.Repository.Implementation
         }
 
        
-        public async Task<(bool,string?)> FinalizeOrderAsync(string customerId, string paymentMethod)
+        public async Task<(bool,string?)> FinalizeOrderAsync(string customerId, string paymentMethod, string loc)
         {
             
 
@@ -154,6 +154,23 @@ namespace MVC_Group7_demo_DAL.Repository.Implementation
                     .ThenInclude(po => po.Product)
                     .Where(o=>o.isDeleted == false && o.isFinalized == false)
                     .FirstOrDefaultAsync(o => o.Customer_id == customerId);
+
+                var deliveries = await db.Deliveries.Where(d => d.Destination == loc && d.IsDeleted == false).ToListAsync();
+
+                int randomId = 0;
+
+                if (deliveries.Any())
+                {
+                    var random = new Random();
+                    int randomIndex = random.Next(deliveries.Count); 
+                    randomId = deliveries[randomIndex].Delivery_id;       
+
+                    Console.WriteLine($"Random Delivery ID: {randomId}");
+                }
+                else
+                {
+                    Console.WriteLine("No deliveries found for that location.");
+                }
 
                 if (order == null)
                 {
@@ -191,7 +208,7 @@ namespace MVC_Group7_demo_DAL.Repository.Implementation
                 }
 
 
-                order.finalize(paymentMethod);
+                order.finalize(paymentMethod, randomId);
 
                 await db.SaveChangesAsync();
                 
