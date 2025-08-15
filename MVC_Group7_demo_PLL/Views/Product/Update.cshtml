@@ -6,7 +6,12 @@
 
 <h2>Update Product</h2>
 
-<form asp-action="Update" method="post" enctype="multipart/form-data">
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+}
+
+<form asp-action="Update" asp-controller="Product" method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="ProductId" />
 
     <div class="mb-3">
@@ -45,7 +50,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Update</button>
-    <a asp-action="GetAll" class="btn btn-secondary">Cancel</a>
+    <a asp-action="GetAll" asp-controller="Product" class="btn btn-secondary">Cancel</a>
 </form>
 
 @section Scripts {
