@@ -2,11 +2,6 @@
 using MVC_Group7_demo_BLL.Services.Abstraction;
 using MVC_Group7_demo_DAL.Entities;
 using MVC_Group7_demo_DAL.Repository.Abstraction;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MVC_Group7_demo_BLL.Services.Implementation
 {
@@ -35,13 +30,16 @@ namespace MVC_Group7_demo_BLL.Services.Implementation
         }
 
 
-        public async Task<(List<ReadProductDto>, string?)> GetAllAsync()
+        public async Task<(List<ReadProductDto>, string?)> GetAllAsync(bool isAdmin = false)
         {
             try
             {
                 var (products, error) = await productRepo.GetAllAsync();
                 if (products == null || products.Count == 0)
                     return (new List<ReadProductDto>(), "No products found");
+
+                if (!isAdmin)
+                    products = products.Where(p => p.Stock > 0).ToList();
 
                 var dtoList = products.Select(p => new ReadProductDto
                 {
@@ -117,7 +115,7 @@ namespace MVC_Group7_demo_BLL.Services.Implementation
             }
         }
 
-        public async Task<(List<ReadProductDto>, string?)> GetByCategoryIdAsync(int categoryId)
+        public async Task<(List<ReadProductDto>, string?)> GetByCategoryIdAsync(int categoryId, bool isAdmin = false)
         {
             try
             {
@@ -129,6 +127,8 @@ namespace MVC_Group7_demo_BLL.Services.Implementation
                 if (products.Count == 0)
                     return (new List<ReadProductDto>(), "No products found for this category");
 
+                if (!isAdmin)
+                    products = products.Where(p => p.Stock > 0).ToList();
 
                 var dtoList = products.Select(p => new ReadProductDto
                 {
@@ -150,11 +150,14 @@ namespace MVC_Group7_demo_BLL.Services.Implementation
             }
         }
 
-        public async Task<(List<ReadProductDto>, string?)> SearchByNameAsync(string name)
+        public async Task<(List<ReadProductDto>, string?)> SearchByNameAsync(string name, bool isAdmin = false)
         {
             var (products, error) = await productRepo.SearchByNameAsync(name);
             if (products == null)
                 return (new List<ReadProductDto>(), error);
+
+            if (!isAdmin)
+                products = products.Where(p => p.Stock > 0).ToList();
 
             var dtoList = products.Select(p => new ReadProductDto
             {

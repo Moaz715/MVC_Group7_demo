@@ -225,7 +225,7 @@ namespace MVC_Group7_demo_PLL.Controllers
             
             return RedirectToAction("ResetPassword", new { token,email = user.Email });
         }
-
+        
         [HttpGet]
         public async Task<IActionResult> ResetPassword(string token, string email)
         {
@@ -270,7 +270,7 @@ namespace MVC_Group7_demo_PLL.Controllers
 
             return View("ResetPassword",model);
         }
-
+        
 
         [Authorize]
         public async Task<IActionResult> Logout()

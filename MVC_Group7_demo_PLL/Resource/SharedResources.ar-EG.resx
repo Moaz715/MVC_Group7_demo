@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FinalizeOrderError" xml:space="preserve">
-    <value>فشل في إتمام الطلب.</value>
+    <value>فشل في إتمام الطلب</value>
   </data>
   <data name="FinalizeOrderSuccess" xml:space="preserve">
     <value>تم إتمام طلبك بنجاح!</value>
@@ -145,7 +145,7 @@
     <value>منتجات</value>
   </data>
   <data name="GetAll.SubHeader" xml:space="preserve">
-    <value>اكتشف مجموعة متنوعة من المنتجات منظمة حسب الفئة.</value>
+    <value>اكتشف مجموعة متنوعة من المنتجات منظمة حسب الفئة</value>
   </data>
   <data name="GetAll.Title" xml:space="preserve">
     <value>جميع الفئات</value>
@@ -154,7 +154,7 @@
     <value>عرض المنتجات</value>
   </data>
   <data name="LoginRequiredError" xml:space="preserve">
-    <value>يجب تسجيل الدخول لتنفيذ هذا الإجراء.</value>
+    <value>يجب تسجيل الدخول لتنفيذ هذا الإجراء</value>
   </data>
   <data name="newLayout.About" xml:space="preserve">
     <value>حول</value>
@@ -184,7 +184,7 @@
     <value>بحث</value>
   </data>
   <data name="newLayout.SearchPlaceholder" xml:space="preserve">
-    <value>البحث عن المنتجات...</value>
+    <value>البحث عن المنتجات</value>
   </data>
   <data name="newLayout.Shop" xml:space="preserve">
     <value>تسوق</value>
@@ -196,7 +196,7 @@
     <value>عرض الطلب</value>
   </data>
   <data name="NotFoundError" xml:space="preserve">
-    <value>العنصر غير موجود.</value>
+    <value>العنصر غير موجود</value>
   </data>
   <data name="Success" xml:space="preserve">
     <value>تمت إضافة المنتج إلى الطلب!</value>
@@ -205,7 +205,7 @@
     <value>تمت العملية بنجاح!</value>
   </data>
   <data name="ErrorMessage" xml:space="preserve">
-    <value>حدث خطأ.</value>
+    <value>حدث خطأ</value>
   </data>
   <data name="SignUp.Header" xml:space="preserve">
     <value>تسجيل الاشتراك</value>
@@ -244,10 +244,10 @@
     <value>تفاصيل الفئة</value>
   </data>
   <data name="Category.ProductsLabel" xml:space="preserve">
-    <value>المنتجات:</value>
+    <value>:المنتجات</value>
   </data>
   <data name="Category.NoProducts" xml:space="preserve">
-    <value>لا يوجد منتجات في هذه الفئة.</value>
+    <value>لا يوجد منتجات في هذه الفئة</value>
   </data>
   <data name="Category.BackButton" xml:space="preserve">
     <value>العودة للقائمة</value>
@@ -316,13 +316,13 @@
     <value>طلبي الحالي</value>
   </data>
   <data name="Order.NoActiveOrder" xml:space="preserve">
-    <value>ليس لديك أي طلبات نشطة.</value>
+    <value>ليس لديك أي طلبات نشطة</value>
   </data>
   <data name="Order.TotalPriceLabel" xml:space="preserve">
-    <value>السعر الإجمالي:</value>
+    <value>السعر الإجمالي</value>
   </data>
   <data name="Order.ItemCountLabel" xml:space="preserve">
-    <value>عدد العناصر:</value>
+    <value>عدد العناصر</value>
   </data>
   <data name="Order.ProductColumn" xml:space="preserve">
     <value>المنتج</value>
