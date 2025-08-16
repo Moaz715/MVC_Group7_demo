@@ -110,7 +110,7 @@ namespace MVC_Group7_demo_PLL.Controllers
             return RedirectToAction(nameof(GetAll));
         }
 
-
+        
         // USER
 
         [HttpGet]

@@ -283,7 +283,7 @@ $arabicValues = @{
   
 }
 
-# Create or update .resx files with proper headers
+
 # English .resx
 $xml = [xml]@"
 <root>

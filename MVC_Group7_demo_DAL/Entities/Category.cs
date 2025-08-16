@@ -20,6 +20,7 @@ namespace MVC_Group7_demo_DAL.Entities
         public string? ModifiedBy { get; private set; }
         public DateTime? DeletedOn { get; private set; }
         public string? DeletedBy { get; private set; }
+        public string? ImagePath { get; private set; }
 
 
         public Category(string name, string createdBy)
