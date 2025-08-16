@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,6 @@ namespace MVC_Group7_demo_BLL.ModelVM
         public int Id { get; set; }
         public string Name { get; set; }
         public string ModifiedBy { get; set; }
+        public IFormFile? Image { get; set; }
     }
 }
