@@ -1,0 +1,85 @@
+﻿@model IEnumerable<MVC_Group7_demo_BLL.ModelVM.DeliveryReadDTO>
+
+@{
+    ViewData["Title"] = "Manage Deliveries";
+}
+
+<div class="container mt-4">
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <h2>@ViewData["Title"]</h2>
+        </div>
+        <div class="col-md-6 text-end">
+            <a class="btn btn-primary" asp-controller="Delivery" asp-action="Create">
+                <i class="fas fa-plus-circle me-2"></i>Create New Delivery
+            </a>
+        </div>
+    </div>
+
+    @* Notifications for Success/Error Messages *@
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-striped table-bordered table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Status</th>
+                        <th>Destination</th>
+                        <th>Estimated Time</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var delivery in Model)
+                        {
+                            <tr>
+                                <td>@delivery.DeliveryId</td>
+                                <td>@Html.DisplayFor(modelItem => delivery.Name)</td>
+                                <td>@Html.DisplayFor(modelItem => delivery.Phone)</td>
+                                <td>@Html.DisplayFor(modelItem => delivery.Status)</td>
+                                <td>@Html.DisplayFor(modelItem => delivery.Destination)</td>
+                                <td>@delivery.EstimatedTime.ToString("yyyy-MM-dd HH:mm")</td>
+                                <td>
+                                    <a class="btn btn-sm btn-warning" asp-controller="Delivery" asp-action="Edit" asp-route-id="@delivery.DeliveryId" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-danger" asp-controller="Delivery" asp-action="Delete" asp-route-id="@delivery.DeliveryId" title="Delete">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center py-4">No deliveries found. Click 'Create New Delivery' to get started.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@* To use the icons (like fas fa-plus-circle), you might need to add Font Awesome to your layout file, if you haven't already. *@
+@* Example: <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" /> *@

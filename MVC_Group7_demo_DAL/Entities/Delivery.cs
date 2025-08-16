@@ -1,9 +1,7 @@
-﻿using System;
+﻿using MVC_Group7_demo_DAL.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MVC_Group7_demo_DAL.Entities
 {
@@ -25,6 +23,7 @@ namespace MVC_Group7_demo_DAL.Entities
         public string? DeletedBy { get; private set; }
         public bool? IsDeleted { get; private set; }
 
+        // This constructor is used by Entity Framework and your Create method
         public Delivery(int delivery_id, string name, string status, string destination, DateTime estimated_time, string createdBy, DateTime? modifiedOn, string? modifiedBy)
         {
             Delivery_id = delivery_id;
@@ -38,17 +37,48 @@ namespace MVC_Group7_demo_DAL.Entities
             ModifiedBy = modifiedBy;
             IsDeleted = false;
         }
-        public void Delete(int id, string? deletedBy)
-        {
-            IsDeleted = true;
-            DeletedOn = DateTime.Now;
-            DeletedBy = deletedBy;
-        }
+
+        // Public methods to safely update the entity's state
         public void UpdateName(string name, string modifiedBy)
         {
             Name = name;
             ModifiedOn = DateTime.Now;
             ModifiedBy = modifiedBy;
+        }
+
+        public void UpdatePhone(string phone, string modifiedBy)
+        {
+            Phone = phone;
+            ModifiedOn = DateTime.Now;
+            ModifiedBy = modifiedBy;
+        }
+
+        public void UpdateStatus(string newStatus, string modifiedBy)
+        {
+            status = newStatus;
+            ModifiedOn = DateTime.Now;
+            ModifiedBy = modifiedBy;
+        }
+
+        public void UpdateDestination(string destination, string modifiedBy)
+        {
+            Destination = destination;
+            ModifiedOn = DateTime.Now;
+            ModifiedBy = modifiedBy;
+        }
+
+        public void UpdateEstimatedTime(DateTime estimatedTime, string modifiedBy)
+        {
+            Estimated_time = estimatedTime;
+            ModifiedOn = DateTime.Now;
+            ModifiedBy = modifiedBy;
+        }
+
+        public void Delete(string? deletedBy)
+        {
+            IsDeleted = true;
+            DeletedOn = DateTime.Now;
+            DeletedBy = deletedBy;
         }
     }
 }

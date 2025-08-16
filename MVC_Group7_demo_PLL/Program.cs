@@ -69,7 +69,7 @@ namespace MVC_Group7_demo_PLL
             builder.Services.AddScoped<ICartServices, CartServices>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<ICustomerServices, CustomerServices>();
-            //builder.Services.AddScoped<IDeliveryServices, DeliveryServices>();
+            builder.Services.AddScoped<IDeliveryService, DeliveryService>();
             builder.Services.AddScoped<IOrdersServices, OrdersServices>();
             //builder.Services.AddScoped<IProductCartServices, ProductCartServices>();
             builder.Services.AddScoped<IProductOrderServices, ProductOrderServices>();

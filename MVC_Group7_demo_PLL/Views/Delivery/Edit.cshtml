@@ -1,39 +1,44 @@
-@* In Views/Delivery/Create.cshtml *@
-
-@model MVC_Group7_demo_BLL.ModelVM.DeliveryCreateDTO
+﻿@model MVC_Group7_demo_BLL.ModelVM.DeliveryUpdateDTO
 
 @{
-    ViewData["Title"] = "Create New Delivery";
+    ViewData["Title"] = "Edit Delivery";
 }
 
 <div class="container mt-4">
-    <h2>@ViewData["Title"]</h2>
+    <h2>@ViewData["Title"] - ID: @Model.DeliveryId</h2>
     <hr />
     <div class="row">
         <div class="col-md-8">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <form asp-action="Create">
-                        @* THIS LINE IS VERY IMPORTANT FOR DEBUGGING! *@
+                    <form asp-action="Edit">
+                        @* 
+                           This is the most important line for debugging. 
+                           It will show any model validation errors that are preventing the form from submitting.
+                        *@
                         <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                        @* This hidden field is essential. It sends the DeliveryId back to the controller. *@
+                        <input type="hidden" asp-for="DeliveryId" />
 
                         <div class="form-group mb-3">
                             <label asp-for="Name" class="control-label"></label>
-                            <input asp-for="Name" class="form-control" placeholder="e.g., John Doe's Package" />
+                            <input asp-for="Name" class="form-control" />
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
                         <div class="form-group mb-3">
                             <label asp-for="Phone" class="control-label"></label>
-                            <input asp-for="Phone" class="form-control" placeholder="e.g., 555-123-4567" />
+                            <input asp-for="Phone" class="form-control" />
                             <span asp-validation-for="Phone" class="text-danger"></span>
                         </div>
-
-                        @* --- REMOVE THE STATUS INPUT FIELD FROM THE VIEW --- *@
-                        @* The controller now handles setting the status *@
-
+                        <div class="form-group mb-3">
+                            <label asp-for="Status" class="control-label"></label>
+                            <input asp-for="Status" class="form-control" />
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                        </div>
                         <div class="form-group mb-3">
                             <label asp-for="Destination" class="control-label"></label>
-                            <input asp-for="Destination" class="form-control" placeholder="e.g., 123 Main St, Anytown" />
+                            <input asp-for="Destination" class="form-control" />
                             <span asp-validation-for="Destination" class="text-danger"></span>
                         </div>
                         <div class="form-group mb-3">
@@ -43,8 +48,8 @@
                         </div>
 
                         <div class="form-group mt-4">
-                            <input type="submit" value="Create" class="btn btn-success" />
-                            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                            <input type="submit" value="Save Changes" class="btn btn-primary" />
+                            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
                         </div>
                     </form>
                 </div>
@@ -53,6 +58,7 @@
     </div>
 </div>
 
+@* This section ensures that client-side validation scripts are loaded for a better user experience. *@
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

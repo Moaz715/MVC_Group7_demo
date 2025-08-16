@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Access Denied";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <div class="card border-warning shadow-sm">
+                <div class="card-header bg-warning text-dark">
+                    <h1 class="display-4"><i class="fas fa-exclamation-triangle me-3"></i>Access Denied</h1>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">You do not have permission to view this page.</h4>
+                    <p class="card-text lead">
+                        The account you are logged in with is not authorized to access this resource. 
+                        Please contact the system administrator if you believe this is an error.
+                    </p>
+                    <hr>
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-primary me-2">
+                        <i class="fas fa-home me-2"></i>Go to Homepage
+                    </a>
+                    <button onclick="history.back()" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Go Back
+                    </button>
+                </div>
+                <div class="card-footer text-muted">
+                    Your current role does not grant access.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* To use the icons, make sure Font Awesome is linked in your _Layout.cshtml, if not already.
+   Example: <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" /> 
+*@

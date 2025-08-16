@@ -28,6 +28,13 @@ namespace MVC_Group7_demo_PLL.Controllers
             this.emailSender = emailSender;
             this.adminServices = adminServices;
         }
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
+
 
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -172,12 +179,11 @@ namespace MVC_Group7_demo_PLL.Controllers
         {
             return View();
         }
-
         [HttpPost]
         public async Task<IActionResult> Login(LogInVm model)
         {
             if (!ModelState.IsValid)
-                return View(model);
+                return View("LoginPage", model);
 
             var user = await userManager.FindByEmailAsync(model.Email);
             if (user == null)
@@ -187,7 +193,7 @@ namespace MVC_Group7_demo_PLL.Controllers
             }
 
             var result = await signInManager.PasswordSignInAsync(
-                user.UserName,  
+                user,  // safer than using user.UserName
                 model.Password,
                 false,
                 lockoutOnFailure: false
@@ -200,17 +206,17 @@ namespace MVC_Group7_demo_PLL.Controllers
                 if (roles.Contains("Admin"))
                 {
                     return RedirectToAction("Index", "Admin");
-
-                }else if (roles.Contains("Customer"))
+                }
+                else if (roles.Contains("Customer"))
                 {
                     return RedirectToAction("GetAll", "Product");
                 }
-                    
             }
 
             ModelState.AddModelError("", "Invalid login attempt.");
-            return View("LoginPage",model);
+            return View("LoginPage", model);
         }
+
 
         [HttpGet]
         [Authorize(Roles ="Customer")] 
